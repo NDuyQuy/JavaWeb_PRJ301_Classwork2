@@ -28,6 +28,13 @@ public class Student {
         gender = genGen();
         DOB=genDOB();
     }
+
+    public Student(int id, String name, boolean gender, Date DOB) {
+        this.id = id;
+        this.name = name;
+        this.gender = gender;
+        this.DOB = DOB;
+    }
     
     public int getId() {
         return id;
@@ -92,7 +99,11 @@ public class Student {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         return format.format(DOB);
     }
-
+    public String getGender()
+    {
+        if(gender) return "Female";
+        else return "Male";
+    }
     @Override
     public String toString() {
         return "Student{" + "id=" + id + ", name=" + name + ", gender=" + gender + ", DOB=" + format() + '}';

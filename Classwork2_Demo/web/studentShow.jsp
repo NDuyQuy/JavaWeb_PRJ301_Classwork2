@@ -4,6 +4,7 @@
     Author     : ASUS
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="model.Student"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,41 +14,37 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <%@include file="studentGen.jsp" %>
-        <table border="1">
-            <thead>
+        <% 
+            ArrayList<Student> l = (ArrayList<Student>)request.getAttribute("sList");
+            if(l!=null){%>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Gender</th>
+                        <th>DOB</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>    
+                
+
+            <% for(Student s: l){%>
                 <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Gender</th>
-                    <th>DateOfBirth</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <% Student s[] = (Student[])request.getAttribute("studentList");
-                if(s!=null)
-                {
-                    
-                for (Student student : s) {%>
-                <tr>
-                    <td><%=student.getId()%></td>
-                    <td><%=student.getName()%></td>
-                    <td><%=student.isGender()%></td>
-                    <td><%out.println(student.format());%></td>
+                    <td><%=s.getId()%></td>
+                    <td><%=s.getName()%></td>
+                    <td><%=s.getGender()%></td>
+                    <td><%=s.format()%></td>
+                    <td><a href="/PT1/student/update?ID=<%=s.getId()%>"/>Update | 
+                        <a href="/PT1/delete?id=<%=s.getId()%>">Delete</a>
+                    </td>
                 </tr>
             <%}
-}
+        }
         %>
-                
-            </tbody>
-        </table>
-
-        
+                </tbody>
+            </table>
+                <a href="/PT1/student/create"/>Create
     </body>
 </html>
