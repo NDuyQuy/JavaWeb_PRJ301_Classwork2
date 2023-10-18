@@ -14,35 +14,31 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <% 
-            ArrayList<Student> l = (ArrayList<Student>)request.getAttribute("sList");
-            if(l!=null){%>
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Gender</th>
-                        <th>DOB</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>    
-                
-
-            <% for(Student s: l){%>
+        <jsp:useBean id="sList" scope="request" class="java.util.ArrayList" />
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>DOB</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>    
+                <% for(Student s: (ArrayList<Student>)sList){%>
                 <tr>
                     <td><%=s.getId()%></td>
                     <td><%=s.getName()%></td>
                     <td><%=s.getGender()%></td>
-                    <td><%=s.format()%></td>
+                    <td><%=s.getDOB()%></td>
                     <td><a href="/PT1/student/update?ID=<%=s.getId()%>"/>Update | 
                         <a href="/PT1/delete?id=<%=s.getId()%>">Delete</a>
                     </td>
                 </tr>
-            <%}
-        }
-        %>
+                <%}%>
+            </tbody>
+        </table>
                 </tbody>
             </table>
                 <a href="/PT1/student/create"/>Create

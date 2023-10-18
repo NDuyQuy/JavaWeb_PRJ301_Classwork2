@@ -9,11 +9,13 @@ package control;
 
 import dal.UserDao;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Student;
+import static org.eclipse.jdt.internal.compiler.parser.Parser.name;
 
 /**
  *
@@ -61,11 +63,9 @@ public class create extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name, gender, dob;
-        name = request.getParameter("name");
-        gender = request.getParameter("gender");
-        dob = request.getParameter("DOB").replaceAll("-", "/");
-        UserDao.createStudent(name, gender, dob);
+        HttpSession session = request.getSession();
+        Student student = (Student)session.getAttribute("checkcreate");
+        UserDao.createStudent(student.getId(), student.getName(), student.getGender(), student.getDOB());
         response.sendRedirect("/PT1/student/list");
     }
 

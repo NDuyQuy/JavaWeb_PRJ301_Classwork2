@@ -80,17 +80,16 @@ public class LoginController extends HttpServlet {
         String url = LOGIN ;
         try {
             String rmStatus = request.getParameter("rm");
+            Cookie cookie = new Cookie("rm", rmStatus);
+            cookie.setMaxAge(500);
+            response.addCookie(cookie);
             String user = request.getParameter("user");
             String pass = request.getParameter("pass");
-            Cookie cookie = new Cookie("rm", rmStatus);
-            response.addCookie(cookie);
             HttpSession session = request.getSession();
             UserDao us = new UserDao();
             if(us.checkLogin(user, pass)) {
                 User u = UserDao.getUser(user, pass);
-                session.setAttribute("User", u);
-                session.setAttribute("loggedIn", "true");
-                session.setMaxInactiveInterval(5 * 60); // 5 minutes
+                session.setAttribute("user", u);
                 if(u.getRole().equals("us")) url = STUDENTLIST;
                 else if(u.getRole().equals("ad")) url = ADMIN;
             }

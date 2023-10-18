@@ -19,7 +19,7 @@ public class UserDao {
     private static final String SQL = "SELECT * FROM [Student] WHERE [Id]=?";
     private static final String SQLUPDATE = "UPDATE [Student] SET [Name]=?,[Gender]=?,[DOB]=? WHERE [Id]=?";
     private static final String SQLDELETE = "DELETE FROM [Student] WHERE [Id]=?";
-    private static final String SQLCREATE = "INSERT INTO [Student]([Name],[Gender],[DOB]) VALUES (?,?,?)";
+    private static final String SQLCREATE = "INSERT INTO [Student] VALUES (?,?,?,?)";
     public static ArrayList<Student> getSList(){
         ArrayList<Student> list = new ArrayList<>();
         PreparedStatement  ptm = null;
@@ -29,10 +29,10 @@ public class UserDao {
                 ptm = con.prepareStatement(SQLG);
                 rs = ptm.executeQuery();
                 while (rs.next()){
-                    int id = rs.getInt("Id");
+                    String id = rs.getString("Id");
                     String name = rs.getString("Name");
-                    boolean gender = rs.getBoolean("Gender");
-                    Date DOB = rs.getDate("DOB");
+                    String gender = rs.getString("Gender");
+                    String DOB= rs.getString("DOB");
                     Student s = new Student(id, name, gender, DOB);
                     list.add(s);
                 }
@@ -51,13 +51,11 @@ public class UserDao {
             ptm.setInt(1, id);
             rs = ptm.executeQuery();
             if(rs.next()){
-                int Id = rs.getInt("Id");
+                String Id = rs.getString("Id");
                 String name = rs.getString("Name");
-                Byte gender = rs.getByte("Gender");
-                boolean gen = true;
-                if(gender.equals((byte)0)) gen = false;
-                Date date = rs.getDate("DOB");
-                s = new Student(Id, name, gen, date);
+                String gender = rs.getString("Gender");
+                String date = rs.getString("DOB");
+                s = new Student(Id, name, gender, date);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -75,12 +73,11 @@ public class UserDao {
             e.printStackTrace();
         }
     }
-    public static void updateStudent(int id, String name,String gender, String dob){
+    public static void updateStudent(String id, String name,String gender, String dob){
         PreparedStatement ptm = null;
-        byte gen = 1;
-        if(gender.equals("F")) gen = 0;
+        int ID = Integer.parseInt(id);
         // create a DateTimeFormatter object with the pattern "dd/MM/yyyy"
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         // parse the date string using the formatter object
         LocalDate date = LocalDate.parse(dob, formatter);
         // convert the LocalDate object to a java.sql.Date object
@@ -88,29 +85,29 @@ public class UserDao {
         try (Connection con = SQLConnection.getConnection1()){
             ptm = con.prepareStatement(SQLUPDATE);
             ptm.setString(1, name);
-            ptm.setByte(2, gen);
+            ptm.setString(2, gender);
             ptm.setDate(3, sqlDate);
-            ptm.setInt(4, id);
+            ptm.setInt(4, ID);
             ptm.executeUpdate();
         }catch (Exception e){
             e.printStackTrace();
         }
     }
-    public static void createStudent(String name,String gender, String dob){
+    public static void createStudent(String id, String name, String gender, String dob){
         PreparedStatement ptm = null;
-        byte gen = 1;
-        if(gender.equals("F")) gen = 0;
+        int ID = Integer.parseInt(id);
         // create a DateTimeFormatter object with the pattern "dd/MM/yyyy"
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         // parse the date string using the formatter object
         LocalDate date = LocalDate.parse(dob, formatter);
         // convert the LocalDate object to a java.sql.Date object
         Date sqlDate = Date.valueOf(date);
         try (Connection con = SQLConnection.getConnection1()){
             ptm = con.prepareStatement(SQLCREATE);
-            ptm.setString(1, name);
-            ptm.setByte(2, gen);
-            ptm.setDate(3, sqlDate);
+            ptm.setInt(1,ID);
+            ptm.setString(2, name);
+            ptm.setString(3, gender);
+            ptm.setDate(4, sqlDate);
             ptm.executeUpdate();
         }catch (Exception e){
             e.printStackTrace();
@@ -205,6 +202,6 @@ public class UserDao {
     }
     
     public static void main(String[] args) {
-        System.out.println(getSList());   
+        createStudent("11", "Quy", "Helicopter", "20-12-2004");
     }
 }

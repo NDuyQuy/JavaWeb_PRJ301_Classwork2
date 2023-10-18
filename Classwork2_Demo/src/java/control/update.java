@@ -14,6 +14,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Student;
 
 /**
  *
@@ -63,12 +65,10 @@ public class update extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        String name = request.getParameter("name");
-        String gender = request.getParameter("gender");
-        String dob = request.getParameter("DOB").replaceAll("-", "/");
-        UserDao.updateStudent(id, name, gender, dob);
-        request.getRequestDispatcher("/student/list").forward(request, response);
+        HttpSession session = request.getSession();
+        Student student = (Student)session.getAttribute("checkcreate");
+        UserDao.updateStudent(student.getId(), student.getName(), student.getGender(), student.getDOB());
+        response.sendRedirect("/PT1/student/list");
     }
 
     /**

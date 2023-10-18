@@ -34,20 +34,10 @@ public class studentservlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String logInStatus = (String)session.getAttribute("loggedIn");
-        Cookie[] cookies = request.getCookies();
-        String rm="";
-        for (Cookie cookie : cookies) {
-            if(cookie.getName().equals("rm")) {
-                rm=cookie.getValue();
-            }
-        }
-        if( (logInStatus!=null&&logInStatus.equals("true")) || rm.equals("on") ){
-            ArrayList<Student> list =  UserDao.getSList();
-            request.setAttribute("sList", list);
-            request.getRequestDispatcher("/studentShow.jsp").forward(request, response);
-        }else response.sendRedirect("login.jsp");
+       
+    ArrayList<Student> list =  UserDao.getSList();
+    request.setAttribute("sList", list);
+    request.getRequestDispatcher("/studentShow.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

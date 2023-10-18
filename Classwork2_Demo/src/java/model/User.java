@@ -5,15 +5,20 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author ASUS
  */
-public class User {
+public class User implements Serializable{
     private int id ;
     private String userName;
     private String password;
     private String role;
+
+    public User() {
+    }
 
     public User(int id, String userName, String password, String role) {
         this.id = id;

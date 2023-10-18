@@ -5,42 +5,34 @@
  */
 package model;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Random;
+import java.io.Serializable;
 
 /**
  *
  * @author ASUS
  */
-public class Student {
-    private int id;
-    private String name;
-    private boolean gender;
-    private Date DOB;
-    private static int nextID=0;
+public class Student implements Serializable{
+    protected String id;
+    protected String name;
+    protected String gender;
+    protected String DOB;
 
     public Student() {
-        nextID++;
-        id = nextID;
-        name = genName();
-        gender = genGen();
-        DOB=genDOB();
     }
 
-    public Student(int id, String name, boolean gender, Date DOB) {
+    public Student(String id, String name, String gender, String DOB) {
         this.id = id;
         this.name = name;
         this.gender = gender;
         this.DOB = DOB;
     }
+
     
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -52,74 +44,27 @@ public class Student {
         this.name = name;
     }
 
-    public boolean isGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(boolean gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
-    public Date getDOB() {
+    public String getDOB() {
         return DOB;
     }
 
-    public void setDOB(Date DOB) {
+    public void setDOB(String DOB) {
         this.DOB = DOB;
     }
-    private int randBetween(int start, int end) {
-        return start + (int) Math.round(Math.random() * (end - start));
-    }
-    private String genName()
-    {
-        int size;
-        size = randBetween(4, 6);
-        char[] name = new char[size];
-        for (int i = 0; i < name.length; i++) {
-            name[i]=(char)randBetween(65, 122);
-        }
-        return String.copyValueOf(name).replaceAll("[^A-Za-z]", "a");
-    }
-    private boolean genGen()
-    {
-        Random r = new Random();
-        return r.nextBoolean();
-    }
-    private Date genDOB()
-    {
-        GregorianCalendar gc = new GregorianCalendar();
-        int year = randBetween(1990, 2010);
-        int month = randBetween(1, 12);
-        int date = randBetween(1, 28);
-        gc.set(year, month, date);
-        return gc.getTime();
-    }
-    public String format()
-    {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        return format.format(DOB);
-    }
-    public String getGender()
-    {
-        if(gender) return "Female";
-        else return "Male";
-    }
+    
     @Override
     public String toString() {
-        return "Student{" + "id=" + id + ", name=" + name + ", gender=" + gender + ", DOB=" + format() + '}';
+        return "Student{" + "id=" + id + ", name=" + name + ", gender=" + gender + ", DOB=" + DOB + '}';
     }
-    public static Student[] studentGen(int number)
-    {
-        Student s[] = new Student[number];
-        for (int i = 0; i < s.length; i++) {
-            s[i]=new Student();
-        }
-        return s;
-    }
-    public static void main(String[] args) {
-        Student[] s = studentGen(5);
-        for (Student student : s) {
-            System.out.println(student);
-        }
-    }
+    
 }
+
+    
