@@ -66,7 +66,7 @@ public class create extends HttpServlet {
         HttpSession session = request.getSession();
         Student student = (Student)session.getAttribute("checkcreate");
         UserDao.createStudent(student.getId(), student.getName(), student.getGender(), student.getDOB());
-        response.sendRedirect("/PT1/student/list");
+        request.getRequestDispatcher("list").forward(request, response);
     }
 
     /**

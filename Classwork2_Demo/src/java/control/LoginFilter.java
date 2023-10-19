@@ -111,12 +111,11 @@ public class LoginFilter implements Filter {
         for (Cookie cookie : cookies) {
             rememberCookie = (cookie.getName().equals("rm")&&cookie.getValue().equals("on"));
         }
-        if (!isLoggedIn || rememberCookie) {
+        if (!isLoggedIn || !rememberCookie) {
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.jsp");
             return;
         }
         chain.doFilter(request, response);
-
     }
 
     /**

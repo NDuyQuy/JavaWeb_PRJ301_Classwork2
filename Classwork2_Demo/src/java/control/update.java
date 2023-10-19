@@ -35,7 +35,7 @@ public class update extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("ID"));
-        request.setAttribute("Student", UserDao.getStudent(id));
+        request.setAttribute("student", UserDao.getStudent(id));
         request.getRequestDispatcher("/update.jsp").include(request, response);
     }
 
@@ -66,9 +66,9 @@ public class update extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Student student = (Student)session.getAttribute("checkcreate");
+        Student student = (Student)session.getAttribute("checkupdate");
         UserDao.updateStudent(student.getId(), student.getName(), student.getGender(), student.getDOB());
-        response.sendRedirect("/PT1/student/list");
+        request.getRequestDispatcher("list").forward(request, response);
     }
 
     /**

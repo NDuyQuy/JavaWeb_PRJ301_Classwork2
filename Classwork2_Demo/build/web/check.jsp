@@ -19,6 +19,8 @@
         Name: ${checkcreate.name}<br/>
         Gender: ${checkcreate.gender}<br/>
         Dob: ${checkcreate.DOB}<br/>
-        <button type="summit" formaction="student/create">Create new</button>
+        <form action="student/create" method="POST">
+            <input type="submit" value="Create" />
+        </form>
     </body>
 </html>

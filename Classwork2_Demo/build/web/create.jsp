@@ -12,7 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form name="create" action="check.jsp" method="POST">
+        <form name="create" action="/PT1/check.jsp" method="POST">
             Id: <input type="text" name="id" value="" /><br>
             Name:<input type="text" name="name" value="" /><br>
             Gender:<input type="radio" id="female" name="gender" value="F"><label for="female">Female</label> 

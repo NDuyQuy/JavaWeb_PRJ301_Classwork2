@@ -17,8 +17,10 @@
         <p>Do you want to update student.</p>
         Id: ${checkupdate.id} <br/>
         Name: ${checkupdate.name}<br/>
-        Gender: ${checkupdate.gender}<br/>
+        Gender: ${checkupdate.gender} <br/>
         Dob: ${checkupdate.DOB}<br/>
-        <button type="summit" formaction="student/update">Create new</button>
+        <form action="student/update" method="POST">
+            <input type="submit" value="Update" />
+        </form>
     </body>
 </html>

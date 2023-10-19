@@ -13,12 +13,12 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <% Student s = (Student)request.getAttribute("Student"); %>
-        <form action="check_1.jsp" method="POST">
-            Id:<input type="text" name="id" value="<%=s.getId()%>" /><br>
-            Name:<input type="text" name="name" value="<%=s.getName()%>" /><br>
-            Gender:<input type="text" name="name" value="<%=s.getGender()%>" /><br>
-            DOB: <input type="text" name="DOB" value="<%=s.getDOB()%>" /><br/>
+        <jsp:useBean id="student" scope="request" class="model.Student" />
+        <form action="/PT1/check_1.jsp" method="POST">
+            Id:<input type="text" name="id" value="${student.id}"/><br>
+            Name:<input type="text" name="name" value="${student.name}"/><br>
+            Gender:<input type="text" name="gender" value="${student.gender}"/><br>
+            DOB: <input type="text" name="DOB" value="${student.DOB}"/><br/>
             <input type="submit" value="Update"/>
         </form>
     </body>

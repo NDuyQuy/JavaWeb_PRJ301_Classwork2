@@ -77,7 +77,7 @@ public class UserDao {
         PreparedStatement ptm = null;
         int ID = Integer.parseInt(id);
         // create a DateTimeFormatter object with the pattern "dd/MM/yyyy"
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         // parse the date string using the formatter object
         LocalDate date = LocalDate.parse(dob, formatter);
         // convert the LocalDate object to a java.sql.Date object
@@ -97,7 +97,7 @@ public class UserDao {
         PreparedStatement ptm = null;
         int ID = Integer.parseInt(id);
         // create a DateTimeFormatter object with the pattern "dd/MM/yyyy"
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         // parse the date string using the formatter object
         LocalDate date = LocalDate.parse(dob, formatter);
         // convert the LocalDate object to a java.sql.Date object
@@ -202,6 +202,6 @@ public class UserDao {
     }
     
     public static void main(String[] args) {
-        createStudent("11", "Quy", "Helicopter", "20-12-2004");
+        updateStudent("1", "John-Update", "Helicopter", "20-12-2004");
     }
 }

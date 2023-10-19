@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 
     Document   : studentShow
     Created on : 21-Sep-2023, 13:57:49
@@ -7,6 +8,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Student"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,22 +27,20 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody>    
-                <% for(Student s: (ArrayList<Student>)sList){%>
+            <tbody>
+            <c:forEach var="s" items="${sList}">
                 <tr>
-                    <td><%=s.getId()%></td>
-                    <td><%=s.getName()%></td>
-                    <td><%=s.getGender()%></td>
-                    <td><%=s.getDOB()%></td>
-                    <td><a href="/PT1/student/update?ID=<%=s.getId()%>"/>Update | 
-                        <a href="/PT1/delete?id=<%=s.getId()%>">Delete</a>
+                    <td><c:out value="${s.id}"/></td>
+                    <td><c:out value="${s.name}"/></td>
+                    <td><c:out value="${s.gender}"/></td>
+                    <td><c:out value="${s.DOB}"/></td>
+                    <td><a href="/PT1/student/update?ID=<c:out value="${s.id}"/>"/>Update | 
+                        <a href="/PT1/delete?id=<c:out value="${s.id}"/>">Delete</a>
                     </td>
                 </tr>
-                <%}%>
+             </c:forEach>
             </tbody>
         </table>
-                </tbody>
-            </table>
                 <a href="/PT1/student/create"/>Create
     </body>
 </html>
